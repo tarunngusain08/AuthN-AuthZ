@@ -1,1 +1,171 @@
 # AuthN-AuthZ
+
+## Product Requirements Document (PRD)
+
+### Feature: User Authentication and Authorization
+
+#### Overview
+This document outlines the requirements for implementing a robust user authentication and authorization system in a Go application. The system will support user registration, login, password management, and role-based access control.
+
+#### Objectives
+- Ensure secure user authentication using JWT tokens.
+- Implement role-based access control to restrict access to certain endpoints.
+- Provide a simple API for user registration and login.
+- Implement password reset functionality.
+
+### Functional Requirements
+
+#### 1. User Registration
+- **Endpoint**: `/api/register`
+- **Method**: `POST`
+- **Description**: Allow users to create a new account.
+- **Request Payload**:
+  ```json
+  {
+    "username": "string",
+    "email": "string",
+    "password": "string"
+  }
+  ```
+- **Response**:
+  - **Success**: `201 Created`
+    ```json
+    {
+      "message": "User registered successfully"
+    }
+    ```
+  - **Failure**: `400 Bad Request`
+    ```json
+    {
+      "error": "User already exists"
+    }
+    ```
+
+#### 2. User Login
+- **Endpoint**: `/api/login`
+- **Method**: `POST`
+- **Description**: Allow users to log in and receive a JWT token.
+- **Request Payload**:
+  ```json
+  {
+    "username": "string",
+    "password": "string"
+  }
+  ```
+- **Response**:
+  - **Success**: `200 OK`
+    ```json
+    {
+      "token": "jwt-token"
+    }
+    ```
+  - **Failure**: `401 Unauthorized`
+    ```json
+    {
+      "error": "Invalid credentials"
+    }
+    ```
+
+#### 3. Password Reset
+- **Endpoint**: `/api/reset-password`
+- **Method**: `POST`
+- **Description**: Allow users to reset their password.
+- **Request Payload**:
+  ```json
+  {
+    "email": "string"
+  }
+  ```
+- **Response**:
+  - **Success**: `200 OK`
+    ```json
+    {
+      "message": "Password reset link sent"
+    }
+    ```
+  - **Failure**: `404 Not Found`
+    ```json
+    {
+      "error": "Email not found"
+    }
+    ```
+
+#### 4. Role-Based Access Control
+- **Description**: Implement roles such as `Admin`, `User`, and restrict access to certain endpoints based on roles.
+- **Roles**:
+  - `Admin`: Access to all endpoints.
+  - `User`: Access to general user endpoints.
+- **Endpoints**:
+  - `/api/admin/*`: Accessible only by `Admin`.
+  - `/api/user/*`: Accessible by both `Admin` and `User`.
+
+### Non-Functional Requirements
+
+#### 1. Security
+- Use bcrypt for password hashing.
+- JWT for token generation and verification.
+- HTTPS for all endpoints.
+
+#### 2. Performance
+- The system should handle up to 1000 concurrent users.
+- Token generation and verification should be performant.
+
+#### 3. Scalability
+- The system should be able to scale horizontally.
+
+#### 4. Documentation
+- API documentation using Swagger.
+- In-code comments and documentation.
+
+### Technical Requirements
+
+#### 1. Language and Framework
+- **Language**: Go
+- **Framework**: Gin (for HTTP server)
+
+#### 2. Database
+- **Type**: PostgreSQL
+- **Tables**:
+  - `users`:
+    ```sql
+    CREATE TABLE users (
+      id SERIAL PRIMARY KEY,
+      username VARCHAR(50) UNIQUE NOT NULL,
+      email VARCHAR(100) UNIQUE NOT NULL,
+      password VARCHAR(255) NOT NULL,
+      role VARCHAR(20) DEFAULT 'User',
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+    ```
+
+#### 3. Libraries and Tools
+- `github.com/gin-gonic/gin` for HTTP server
+- `github.com/dgrijalva/jwt-go` for JWT
+- `golang.org/x/crypto/bcrypt` for password hashing
+- `github.com/jinzhu/gorm` for ORM
+- `github.com/swaggo/swag` for Swagger documentation
+
+### Milestones and Timeline
+
+#### 1. Phase 1: User Registration and Login (2 weeks)
+- Implement user registration endpoint.
+- Implement user login endpoint.
+- Implement JWT token generation.
+
+#### 2. Phase 2: Password Management (1 week)
+- Implement password reset endpoint.
+
+#### 3. Phase 3: Role-Based Access Control (2 weeks)
+- Implement role-based access control.
+- Protect endpoints based on user roles.
+
+#### 4. Phase 4: Testing and Documentation (1 week)
+- Write unit tests and integration tests.
+- Generate API documentation using Swagger.
+
+### Risks and Mitigation
+- **Security Risks**: Ensure all data is encrypted, use secure libraries, conduct regular security audits.
+- **Scalability Issues**: Design the system to be stateless where possible, use a load balancer for distributing traffic.
+
+### Conclusion
+This PRD outlines the requirements and specifications for implementing a secure and scalable user authentication and authorization system in a Go application. The proposed system aims to enhance the security and usability of the application while providing a robust foundation for future features and expansions.
