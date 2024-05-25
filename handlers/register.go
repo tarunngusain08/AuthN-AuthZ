@@ -17,14 +17,9 @@ func NewRegisterUserHandler(repo *repo.RegisterUserRepo) *RegisterUserHandler {
 }
 
 func (r *RegisterUserHandler) RegisterUser(c *gin.Context) {
-	body, err := c.Request.GetBody()
-	if err != nil {
-		c.JSON(http.StatusBadRequest, "Invalid Details Entered")
-		return
-	}
-
+	body := c.Request.Body
 	var userDetails *contracts.RegisterUser
-	err = json.NewDecoder(body).Decode(userDetails)
+	err := json.NewDecoder(body).Decode(&userDetails)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, "Invalid Details Entered")
 		return
