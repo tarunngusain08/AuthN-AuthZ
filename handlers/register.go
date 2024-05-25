@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strings"
 )
 
 type RegisterUserHandler struct {
@@ -27,7 +28,11 @@ func (r *RegisterUserHandler) RegisterUser(c *gin.Context) {
 
 	err = r.repo.Register(userDetails)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, "Could not register the user!")
+		if strings.Contains(err.Error(), "duplicate") {
+			c.JSON(http.StatusInternalServerError, "User already Exists! Try logging in or use alternate email")
+		} else {
+			c.JSON(http.StatusInternalServerError, "Could not register the user!"+err.Error())
+		}
 		return
 	}
 
