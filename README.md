@@ -136,6 +136,8 @@ This document outlines the requirements for implementing a robust user authentic
       role VARCHAR(20) DEFAULT 'User',
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
+
+    SELECT * FROM users;
     ```
 
 #### 3. Libraries and Tools
