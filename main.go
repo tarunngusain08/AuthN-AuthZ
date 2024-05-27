@@ -10,6 +10,7 @@ import (
 
 type Handlers struct {
 	RegisterUser *handlers.RegisterUserHandler
+	LoginUser    *handlers.LoginHandler
 }
 
 var Handler *Handlers
@@ -17,7 +18,7 @@ var Handler *Handlers
 func main() {
 	router := gin.Default()
 	router.POST("/api/register", Handler.RegisterUser.RegisterUser)
-	router.POST("api/login")
+	router.POST("api/login", Handler.LoginUser.Login)
 	router.Run(":8080")
 }
 
@@ -28,6 +29,11 @@ func init() {
 	}
 	Handler = new(Handlers)
 	registerRepo := repo.NewRegisterUserRepo(db)
+	loginRepo := repo.NewLoginRepo(db)
+
 	registerUser := handlers.NewRegisterUserHandler(registerRepo)
+	loginHandler := handlers.NewLoginHandler(loginRepo)
+
 	Handler.RegisterUser = registerUser
+	Handler.LoginUser = loginHandler
 }
