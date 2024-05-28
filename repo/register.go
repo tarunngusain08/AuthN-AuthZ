@@ -19,7 +19,6 @@ func NewRegisterUserRepo(db *sqlx.DB) *RegisterUserRepo {
 }
 
 func (r *RegisterUserRepo) Register(userDetails *contracts.RegisterUser) error {
-	// Hash the password
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(userDetails.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return fmt.Errorf("failed to hash password: %v", err)
