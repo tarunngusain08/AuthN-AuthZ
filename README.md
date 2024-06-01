@@ -187,7 +187,12 @@ This PRD outlines the requirements and specifications for implementing a secure 
 
 
 
-#### **Database Entries**
+#### **Database Entries For Registered Users**
 
 <img width="1512" alt="Screenshot 2024-05-25 at 1 30 05 PM" src="https://github.com/tarunngusain08/AuthN-AuthZ/assets/36428256/637fbe02-8d0e-4b27-9792-944ad81597d6">
 <img width="1008" alt="Screenshot 2024-05-25 at 1 33 56 PM" src="https://github.com/tarunngusain08/AuthN-AuthZ/assets/36428256/0fd79ac0-389b-4115-9617-bfbcc8fdf61b">
+
+
+
+#### **Logging in User and JWT Token Generation**
+<img width="997" alt="Screenshot 2024-06-01 at 7 05 52 PM" src="https://github.com/tarunngusain08/AuthN-AuthZ/assets/36428256/fe1ba847-62b0-45a2-80e1-e0d2d9e0a89f">
