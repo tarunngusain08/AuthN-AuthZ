@@ -3,40 +3,30 @@ package repo
 import (
 	"AuthN-AuthZ/contracts"
 	"AuthN-AuthZ/models"
-	"fmt"
 	"github.com/jmoiron/sqlx"
 	"golang.org/x/crypto/bcrypt"
 )
 
-type RegisterUserRepo struct {
+type LoginRepo struct {
 	db *sqlx.DB
 }
 
-func NewRegisterUserRepo(db *sqlx.DB) *RegisterUserRepo {
-	return &RegisterUserRepo{
-		db: db,
-	}
+func NewLoginRepo(db *sqlx.DB) *LoginRepo {
+	return &LoginRepo{db: db}
 }
 
-func (r *RegisterUserRepo) Register(userDetails *contracts.Register) error {
-	// Hash the password
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(userDetails.Password), bcrypt.DefaultCost)
+func (l *LoginRepo) Login(userDetails *contracts.Login) error {
+	fetchedUserDetails := new(models.User)
+	query := `SELECT * FROM Users WHERE Email = $1`
+
+	err := l.db.Get(fetchedUserDetails, query, userDetails.Email)
 	if err != nil {
-		return fmt.Errorf("failed to hash password: %v", err)
+		return err
 	}
 
-	user := models.User{
-		Username: userDetails.Username,
-		Email:    userDetails.Email,
-		Password: string(hashedPassword),
-	}
-
-	// Insert user into database
-	query := `INSERT INTO users (username, email, password) VALUES (:username, :email, :password)`
-	_, err = r.db.NamedExec(query, &user)
+	err = bcrypt.CompareHashAndPassword([]byte(fetchedUserDetails.Password), []byte(userDetails.Password))
 	if err != nil {
-		return fmt.Errorf("failed to insert user: %v", err)
+		return err
 	}
-
 	return nil
 }
