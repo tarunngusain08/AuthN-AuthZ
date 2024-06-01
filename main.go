@@ -28,8 +28,9 @@ func init() {
 		panic(err)
 	}
 	Handler = new(Handlers)
+	signingKey := []byte("secret")
 	registerRepo := repo.NewRegisterUserRepo(db)
-	loginRepo := repo.NewLoginRepo(db)
+	loginRepo := repo.NewLoginRepo(db, signingKey)
 
 	registerUser := handlers.NewRegisterUserHandler(registerRepo)
 	loginHandler := handlers.NewLoginHandler(loginRepo)
