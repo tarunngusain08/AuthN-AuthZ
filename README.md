@@ -48,7 +48,7 @@ This document outlines the requirements for implementing a robust user authentic
 - **Request Payload**:
   ```json
   {
-    "username": "string",
+    "email": "string",
     "password": "string"
   }
   ```
