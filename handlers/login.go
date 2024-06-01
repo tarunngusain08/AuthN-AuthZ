@@ -18,17 +18,17 @@ func NewLoginHandler(repo *repo.LoginRepo) *LoginHandler {
 
 func (l *LoginHandler) Login(c *gin.Context) {
 	body := c.Request.Body
-	userDetails := new(contracts.Login)
+	userDetails := new(contracts.LoginRequest)
 	err := json.NewDecoder(body).Decode(&userDetails)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 		return
 	}
 
-	err = l.repo.Login(userDetails)
+	token, err := l.repo.Login(userDetails)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err)
 		return
 	}
-	c.JSON(http.StatusOK, "Logged in successfully.")
+	c.JSON(http.StatusOK, token)
 }
