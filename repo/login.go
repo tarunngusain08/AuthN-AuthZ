@@ -26,19 +26,17 @@ func (l *LoginRepo) Login(userDetails *contracts.LoginRequest) (*contracts.Login
 	if err != nil {
 		return nil, err
 	}
-
+	token := new(contracts.LoginResponse)
+	tokenGenerationError := new(error)
+	go l.generateToken(token, tokenGenerationError, userDetails)
 	err = bcrypt.CompareHashAndPassword([]byte(fetchedUserDetails.Password), []byte(userDetails.Password))
 	if err != nil {
 		return nil, err
 	}
-	token, err := l.generateToken(userDetails)
-	if err != nil {
-		return nil, err
-	}
-	return token, nil
+	return token, *tokenGenerationError
 }
 
-func (l *LoginRepo) generateToken(userDetails *contracts.LoginRequest) (*contracts.LoginResponse, error) {
+func (l *LoginRepo) generateToken(jwtToken *contracts.LoginResponse, tokenGenerationError *error, userDetails *contracts.LoginRequest) {
 	// Define the token claims
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"authorized": true,
@@ -49,9 +47,6 @@ func (l *LoginRepo) generateToken(userDetails *contracts.LoginRequest) (*contrac
 
 	// Sign the token with the secret key
 	tokenString, err := token.SignedString(l.signingKey)
-	if err != nil {
-		return nil, err
-	}
-
-	return &contracts.LoginResponse{Token: tokenString}, nil
+	jwtToken.Token = tokenString
+	tokenGenerationError = &err
 }
