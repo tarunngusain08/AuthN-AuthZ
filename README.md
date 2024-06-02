@@ -159,7 +159,6 @@ This document outlines the requirements for implementing a robust user authentic
 
 #### 4. Phase 4: Testing and Documentation (1 week)
 - Write unit tests and integration tests.
-- Generate API documentation using Swagger.
 
 ### Risks and Mitigation
 - **Security Risks**: Ensure all data is encrypted, use secure libraries, conduct regular security audits.
