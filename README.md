@@ -104,7 +104,6 @@ This document outlines the requirements for implementing a robust user authentic
 #### 1. Security
 - Use bcrypt for password hashing.
 - JWT for token generation and verification.
-- HTTPS for all endpoints.
 
 #### 2. Performance
 - The system should handle up to 1000 concurrent users.
@@ -113,9 +112,6 @@ This document outlines the requirements for implementing a robust user authentic
 #### 3. Scalability
 - The system should be able to scale horizontally.
 
-#### 4. Documentation
-- API documentation using Swagger.
-- In-code comments and documentation.
 
 ### Technical Requirements
 
