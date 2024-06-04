@@ -169,7 +169,6 @@ This PRD outlines the requirements and specifications for implementing a secure 
 
 ### Validations and Screenshots
 
-
 #### **Successful registration**
 
 <img width="1003" alt="Screenshot 2024-05-25 at 1 33 17 PM" src="https://github.com/tarunngusain08/AuthN-AuthZ/assets/36428256/c2e17287-ff12-4f24-ab25-a8ac6c7edfe0">
