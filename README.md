@@ -99,6 +99,7 @@ This document outlines the requirements for implementing a robust user authentic
   - `/api/admin/*`: Accessible only by `Admin`.
   - `/api/user/*`: Accessible by both `Admin` and `User`.
 
+
 ### Non-Functional Requirements
 
 #### 1. Security
