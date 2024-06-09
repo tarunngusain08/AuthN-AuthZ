@@ -190,4 +190,5 @@ This PRD outlines the requirements and specifications for implementing a secure 
 
 
 #### **Logging in User and JWT Token Generation**
+
 <img width="997" alt="Screenshot 2024-06-01 at 7 05 52 PM" src="https://github.com/tarunngusain08/AuthN-AuthZ/assets/36428256/fe1ba847-62b0-45a2-80e1-e0d2d9e0a89f">
