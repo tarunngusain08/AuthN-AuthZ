@@ -10,8 +10,8 @@ import (
 )
 
 type Handlers struct {
-	RegisterUser *handlers.RegisterUserHandler
-	LoginUser    *handlers.LoginHandler
+	RegisterUser  *handlers.RegisterUserHandler
+	LoginUser     *handlers.LoginHandler
 	ResetPassword *handlers.ResetPasswordHandler
 }
 
@@ -30,6 +30,9 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
+	
+	Email := "example@gmail.com"
+	Password := "password"
 
 	db.SetMaxOpenConns(100)
 	db.SetMaxIdleConns(10)
@@ -39,6 +42,7 @@ func init() {
 	signingKey := []byte("secret")
 	registerRepo := repo.NewRegisterUserRepo(db)
 	loginRepo := repo.NewLoginRepo(db, signingKey)
+	resetPasswordRepo := repo.NewResetPasswordRepo(db, Email, Password)
 
 	registerUser := handlers.NewRegisterUserHandler(registerRepo)
 	loginHandler := handlers.NewLoginHandler(loginRepo)
