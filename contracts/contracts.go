@@ -12,5 +12,9 @@ type LoginRequest struct {
 }
 
 type LoginResponse struct {
-	Token string `json:"token"`
+	Token *string `json:"token"`
+}
+
+type ResetPassword struct {
+	Email string `json:"email" binding:"required,email"`
 }
