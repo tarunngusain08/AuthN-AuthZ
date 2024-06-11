@@ -30,9 +30,9 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	
-	Email := "example@gmail.com"
-	Password := "password"
+
+	Email := "example@gmail.com" // Enter your email
+	Password := "password"       // Enter your password
 
 	db.SetMaxOpenConns(100)
 	db.SetMaxIdleConns(10)
