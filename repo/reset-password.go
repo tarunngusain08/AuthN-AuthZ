@@ -17,8 +17,8 @@ type ResetPasswordRepo struct {
 
 const subject = "OTP for Password Reset"
 
-func NewResetPasswordRepo(db *sqlx.DB) *ResetPasswordRepo {
-	return &ResetPasswordRepo{db: db}
+func NewResetPasswordRepo(db *sqlx.DB, email, password string) *ResetPasswordRepo {
+	return &ResetPasswordRepo{db: db, Email: email, Password: password}
 }
 
 func GenerateOTP() (string, error) {
