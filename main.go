@@ -46,7 +46,9 @@ func init() {
 
 	registerUser := handlers.NewRegisterUserHandler(registerRepo)
 	loginHandler := handlers.NewLoginHandler(loginRepo)
+	resetPasswordHandler := handlers.NewResetPasswordHandler(resetPasswordRepo)
 
 	Handler.RegisterUser = registerUser
 	Handler.LoginUser = loginHandler
+	Handler.ResetPassword = resetPasswordHandler
 }
