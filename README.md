@@ -90,15 +90,6 @@ This document outlines the requirements for implementing a robust user authentic
     }
     ```
 
-#### 4. Role-Based Access Control
-- **Description**: Implement roles such as `Admin`, `User`, and restrict access to certain endpoints based on roles.
-- **Roles**:
-  - `Admin`: Access to all endpoints.
-  - `User`: Access to general user endpoints.
-- **Endpoints**:
-  - `/api/admin/*`: Accessible only by `Admin`.
-  - `/api/user/*`: Accessible by both `Admin` and `User`.
-
 
 ### Non-Functional Requirements
 
